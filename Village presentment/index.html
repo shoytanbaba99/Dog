@@ -1,307 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Village Scene with Day/Night Mode</title>
-		<style>
-			:root {
-				--sky-day: #87ceeb;
-				--sky-night: #0a2342;
-				--ground-day: #90be6d;
-				--ground-night: #2a3d45;
-				--river-day: #48bfe3;
-				--river-night: #4a6fa5;
-				--star-color: #ffffff;
-				--cloud-color: #ffffff;
-			}
+<head>
+    <meta charset="UTF-8" />
+    <title>Village Scene with Day/Night Mode</title>
+    <style>
+        :root {
+            --sky-day: #87ceeb;
+            --sky-night: #0a2342;
+            --ground-day: #90be6d;
+            --ground-night: #2a3d45;
+            --river-day: #48bfe3;
+            --river-night: #4a6fa5;
+            --star-color: #ffffff;
+            --cloud-color: #ffffff;
+        }
 
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-			body {
-				overflow: hidden;
-				height: 100vh;
-			}
+        body {
+            overflow: hidden;
+            height: 100vh;
+        }
 
-			.scene-container {
-				position: relative;
-				width: 100vw;
-				height: 100vh;
-				overflow: hidden;
-			}
+        .scene-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-			.sky {
-				position: absolute;
-				width: 100%;
-				height: 70%;
-				background: var(--sky-day);
-				transition: background 2s ease;
-			}
+        .sky {
+            position: absolute;
+            width: 100%;
+            height: 70%;
+            background: var(--sky-day);
+            transition: background 2s ease;
+        }
 
-			.ground {
-				position: absolute;
-				bottom: 0;
-				width: 100%;
-				height: 30%;
-				background: var(--ground-day);
-				transition: background 2s ease;
-			}
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30%;
+            background: var(--ground-day);
+            transition: background 2s ease;
+        }
 
-			/* Image Containers */
-			.image-container {
-				position: absolute;
-				overflow: hidden;
-			}
+        /* Image Containers */
+        .image-container {
+            position: absolute;
+            overflow: hidden;
+        }
 
-			.responsive-image {
-				width: 100%;
-				height: 100%;
-				object-fit: contain;
-			}
+        .responsive-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
 
-			/* House */
-			.house-container {
-				width: 400px;
-				height: 350px;
-				bottom: 25%;
-				left: 50%;
-				transform: translateX(-50%);
-				z-index: 5;
-			}
+        /* House */
+        .house-container {
+            width: 400px;
+            height: 350px;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
 
-			/* Trees */
-			.tree-container {
-				width: 250px;
-				height: 400px;
-				z-index: 4;
-			}
+        /* Trees */
+        .tree-container {
+            width: 250px;
+            height: 400px;
+            z-index: 4;
+        }
 
-			.tree-left {
-				left: 5%;
-				bottom: 30%;
-			}
+        .tree-left {
+            left: 5%;
+            bottom: 30%;
+        }
 
-			.tree-right {
-				right: 5%;
-				bottom: 28%;
-			}
+        .tree-right {
+            right: 5%;
+            bottom: 28%;
+        }
 
-			.tree-middle {
-				left: 35%;
-				bottom: 32%;
-				transform: scale(1.2);
-			}
+        .tree-middle {
+            left: 35%;
+            bottom: 32%;
+            transform: scale(1.2);
+        }
 
-			/* Cycle (Bicycle) */
-			.cycle-container {
-				width: 100px;
-				height: 100px;
-				bottom: 25%; /* Positioned on the ground */
-				left: -10%;
-				z-index: 6;
-				animation: cycleMotion 20s linear infinite;
-			}
+        /* Cycle (Bicycle) */
+        .cycle-container {
+            width: 100px;
+            height: 100px;
+            bottom: 25%; /* Positioned on the ground */
+            left: -10%;
+            z-index: 6;
+            animation: cycleMotion 20s linear infinite;
+        }
 
-			@keyframes cycleMotion {
-				0% {
-					left: -10%;
-					transform: scaleX(1); /* Facing right */
-				}
-				50% {
-					left: 50%;
-					transform: scaleX(1); /* Facing right */
-				}
-				51% {
-					transform: scaleX(-1); /* Flip to face left */
-				}
-				100% {
-					left: 110%;
-					transform: scaleX(-1); /* Facing left */
-				}
-			}
+        @keyframes cycleMotion {
+            0% {
+                left: -10%;
+                transform: scaleX(1); /* Facing right */
+            }
+            50% {
+                left: 50%;
+                transform: scaleX(1); /* Facing right */
+            }
+            51% {
+                transform: scaleX(-1); /* Flip to face left */
+            }
+            100% {
+                left: 110%;
+                transform: scaleX(-1); /* Facing left */
+            }
+        }
 
-			/* River */
-			.river {
-				position: absolute;
-				width: 100%;
-				height: 120px;
-				bottom: 5%;
-				overflow: hidden;
-				z-index: 2;
-			}
+        /* River */
+        .river {
+            position: absolute;
+            width: 100%;
+            height: 120px;
+            bottom: 5%;
+            overflow: hidden;
+            z-index: 2;
+        }
 
-			.river-image {
-				width: 200%;
-				height: 100%;
-				object-fit: cover;
-				animation: riverFlow 20s linear infinite;
-			}
+        .river-image {
+            width: 200%;
+            height: 100%;
+            object-fit: cover;
+            animation: riverFlow 20s linear infinite;
+        }
 
-			@keyframes riverFlow {
-				0% {
-					transform: translateX(-50%);
-				}
-				100% {
-					transform: translateX(0%);
-				}
-			}
+        @keyframes riverFlow {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0%);
+            }
+        }
 
-			/* Clouds */
-			.cloud {
-				position: absolute;
-				background: var(--cloud-color);
-				border-radius: 50px;
-				opacity: 0.9;
-				animation: moveCloud 10s linear infinite;
-			}
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: var(--cloud-color);
+            border-radius: 50px;
+            opacity: 0.9;
+            left: -100%; /* Start off-screen */
+            animation: moveCloud 20s linear infinite;
+        }
 
-			.cloud:nth-child(2) {
-				animation-duration: 10s;
-			}
+        @keyframes moveCloud {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
 
-			.cloud:nth-child(3) {
-				animation-duration: 10s;
-			}
+        /* Celestial Body (Sun/Moon) */
+        .celestial-container {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 1s ease;
+            z-index: 2;
+        }
 
-			@keyframes moveCloud {
-				0% {
-					transform: translateX(-100%);
-				}
-				100% {
-					transform: translateX(100%);
-				}
-			}
+        [data-theme="night"] .celestial-container {
+            filter: brightness(0.8) hue-rotate(180deg);
+        }
 
-			/* Stars */
-			.star {
-				position: absolute;
-				background: var(--star-color);
-				border-radius: 50%;
-				opacity: 0;
-				animation: twinkle 3s infinite ease-in-out;
-			}
+        /* Stars */
+        .star {
+            position: absolute;
+            background: var(--star-color);
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite ease-in-out;
+        }
 
-			@keyframes twinkle {
-				0%,
-				100% {
-					opacity: 0;
-				}
-				50% {
-					opacity: 1;
-				}
-			}
+        @keyframes twinkle {
+            0%,
+            100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
 
-			/* Night Mode */
-			[data-theme="night"] .sky {
-				background: var(--sky-night);
-			}
+        /* Night Mode */
+        [data-theme="night"] .sky {
+            background: var(--sky-night);
+        }
 
-			[data-theme="night"] .ground {
-				background: var(--ground-night);
-			}
+        [data-theme="night"] .ground {
+            background: var(--ground-night);
+        }
 
-			[data-theme="night"] .river {
-				background: var(--river-night);
-			}
+        [data-theme="night"] .river {
+            background: var(--river-night);
+        }
 
-			[data-theme="night"] .cycle-container {
-				filter: brightness(0.6);
-			}
+        [data-theme="night"] .cycle-container {
+            filter: brightness(0.6);
+        }
 
-			[data-theme="night"] .cloud {
-				display: none;
-			}
+        [data-theme="night"] .cloud {
+            display: none;
+        }
 
-			[data-theme="day"] .star {
-				display: none;
-			}
+        [data-theme="day"] .star {
+            display: none;
+        }
 
-			.theme-toggle {
-				position: fixed;
-				top: 20px;
-				right: 20px;
-				padding: 10px 20px;
-				background: rgba(255, 255, 255, 0.8);
-				border: none;
-				border-radius: 5px;
-				cursor: pointer;
-				z-index: 100;
-			}
-		</style>
-	</head>
-	<body>
-		<button class="theme-toggle" onclick="toggleTheme()">Toggle Day/Night</button>
-		<div class="scene-container" data-theme="day">
-			<div class="sky">
-				<!-- Clouds -->
-				<div class="cloud" style="top: 15%; width: 200px; height: 60px"></div>
-				<div class="cloud" style="top: 25%; width: 150px; height: 50px"></div>
-				<div class="cloud" style="top: 35%; width: 180px; height: 55px"></div>
-			</div>
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Day/Night</button>
+    <div class="scene-container" data-theme="day">
+        <div class="sky">
+            <!-- Celestial Body (Sun/Moon) -->
+            <div class="celestial-container">
+                <img src="Sun.png" class="responsive-image" id="celestialElement" alt="Sun/Moon" />
+            </div>
 
-			<div class="ground">
-				<!-- River -->
-				<div class="river">
-					<img src="River.gif" class="river-image" alt="Flowing River" />
-				</div>
+            <!-- Clouds -->
+            <div class="cloud" style="top: 15%; width: 200px; height: 60px"></div>
+            <div class="cloud" style="top: 25%; width: 150px; height: 50px; animation-duration: 25s"></div>
+            <div class="cloud" style="top: 35%; width: 180px; height: 55px; animation-duration: 30s"></div>
+        </div>
 
-				<!-- House -->
-				<div class="image-container house-container">
-					<img src="Day_House.png" class="responsive-image" alt="House" />
-				</div>
+        <div class="ground">
+            <!-- River -->
+            <div class="river">
+                <img src="River.gif" class="river-image" alt="Flowing River" />
+            </div>
 
-				<!-- Trees -->
-				<div class="image-container tree-container tree-left">
-					<img src="Day_Tree.png" class="responsive-image" alt="Tree" />
-				</div>
-				<div class="image-container tree-container tree-right">
-					<img src="Day_Tree.png" class="responsive-image" alt="Tree" />
-				</div>
-				<div class="image-container tree-container tree-middle">
-					<img src="Day_Tree.png" class="responsive-image" alt="Tree" />
-				</div>
+            <!-- House -->
+            <div class="image-container house-container">
+                <img src="Day_House.png" class="responsive-image" alt="House" />
+            </div>
 
-				<!-- Cycle (Bicycle) -->
-				<div class="image-container cycle-container">
-					<img src="Cycle.png" class="responsive-image" alt="Cycle" />
-				</div>
-			</div>
-		</div>
+            <!-- Trees -->
+            <div class="image-container tree-container tree-left">
+                <img src="Day_Tree.png" class="responsive-image" alt="Tree" />
+            </div>
+            <div class="image-container tree-container tree-right">
+                <img src="Day_Tree.png" class="responsive-image" alt="Tree" />
+            </div>
+            <div class="image-container tree-container tree-middle">
+                <img src="Day_Tree.png" class="responsive-image" alt="Tree" />
+            </div>
 
-		<script>
-			function toggleTheme() {
-				const container = document.querySelector(".scene-container");
-				const currentTheme = container.getAttribute("data-theme");
-				const newTheme = currentTheme === "day" ? "night" : "day";
-				container.setAttribute("data-theme", newTheme);
+            <!-- Cycle (Bicycle) -->
+            <div class="image-container cycle-container">
+                <img src="Cycle.png" class="responsive-image" alt="Cycle" />
+            </div>
+        </div>
+    </div>
 
-				if (newTheme === "night") {
-					createStars();
-				} else {
-					removeStars();
-				}
-			}
+    <script>
+        function toggleTheme() {
+            const container = document.querySelector(".scene-container");
+            const currentTheme = container.getAttribute("data-theme");
+            const newTheme = currentTheme === "day" ? "night" : "day";
+            const celestialElement = document.getElementById("celestialElement");
 
-			function createStars() {
-				const sky = document.querySelector(".sky");
-				for (let i = 0; i < 200; i++) {
-					const star = document.createElement("div");
-					star.className = "star";
-					star.style.left = `${Math.random() * 100}%`;
-					star.style.top = `${Math.random() * 70}%`;
-					star.style.width = `${Math.random() * 3 + 1}px`;
-					star.style.height = star.style.width;
-					star.style.animationDelay = `${Math.random() * 3}s`;
-					sky.appendChild(star);
-				}
-			}
+            // Change celestial body image
+            celestialElement.src = newTheme === "day" ? "Sun.png" : "Moon.png";
 
-			function removeStars() {
-				document.querySelectorAll(".star").forEach((star) => star.remove());
-			}
-		</script>
-	</body>
+            // Update theme
+            container.setAttribute("data-theme", newTheme);
+
+            // Add/remove stars
+            if (newTheme === "night") {
+                createStars();
+            } else {
+                removeStars();
+            }
+        }
+
+        function createStars() {
+            const sky = document.querySelector(".sky");
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 70}%`;
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                sky.appendChild(star);
+            }
+        }
+
+        function removeStars() {
+            document.querySelectorAll(".star").forEach((star) => star.remove());
+        }
+    </script>
+</body>
 </html>
