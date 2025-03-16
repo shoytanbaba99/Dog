@@ -50,7 +50,6 @@
             transition: background 2s ease;
         }
 
-        /* Image Containers */
         .image-container {
             position: absolute;
             overflow: hidden;
@@ -62,7 +61,6 @@
             object-fit: contain;
         }
 
-        /* House */
         .house-container {
             width: 400px;
             height: 350px;
@@ -72,7 +70,6 @@
             z-index: 5;
         }
 
-        /* Trees */
         .tree-container {
             width: 250px;
             height: 400px;
@@ -95,35 +92,22 @@
             transform: scale(1.2);
         }
 
-        /* Cycle (Bicycle) */
         .cycle-container {
             width: 100px;
             height: 100px;
-            bottom: 25%; /* Positioned on the ground */
+            bottom: 25%;
             left: -10%;
             z-index: 6;
             animation: cycleMotion 20s linear infinite;
         }
 
         @keyframes cycleMotion {
-            0% {
-                left: -10%;
-                transform: scaleX(1); /* Facing right */
-            }
-            50% {
-                left: 50%;
-                transform: scaleX(1); /* Facing right */
-            }
-            51% {
-                transform: scaleX(-1); /* Flip to face left */
-            }
-            100% {
-                left: 110%;
-                transform: scaleX(-1); /* Facing left */
-            }
+            0% { left: -10%; transform: scaleX(1); }
+            50% { left: 50%; transform: scaleX(1); }
+            51% { transform: scaleX(-1); }
+            100% { left: 110%; transform: scaleX(-1); }
         }
 
-        /* River */
         .river {
             position: absolute;
             width: 100%;
@@ -141,34 +125,24 @@
         }
 
         @keyframes riverFlow {
-            0% {
-                transform: translateX(-50%);
-            }
-            100% {
-                transform: translateX(0%);
-            }
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
         }
 
-        /* Clouds */
         .cloud {
             position: absolute;
             background: var(--cloud-color);
             border-radius: 50px;
             opacity: 0.9;
-            left: -100%; /* Start off-screen */
+            left: -100%;
             animation: moveCloud 20s linear infinite;
         }
 
         @keyframes moveCloud {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
-        /* Celestial Body (Sun/Moon) */
         .celestial-container {
             position: absolute;
             width: 80px;
@@ -184,7 +158,6 @@
             filter: brightness(0.8) hue-rotate(180deg);
         }
 
-        /* Stars */
         .star {
             position: absolute;
             background: var(--star-color);
@@ -194,80 +167,73 @@
         }
 
         @keyframes twinkle {
-            0%,
-            100% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
 
-        /* Night Mode */
-        [data-theme="night"] .sky {
-            background: var(--sky-night);
+        [data-theme="night"] .sky { background: var(--sky-night); }
+        [data-theme="night"] .ground { background: var(--ground-night); }
+        [data-theme="night"] .river { background: var(--river-night); }
+        [data-theme="night"] .cycle-container { filter: brightness(0.6); }
+        [data-theme="night"] .cloud { display: none; }
+        [data-theme="day"] .star { display: none; }
+
+        @keyframes sway {
+            0% { transform: rotate(3deg); }
+            50% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
         }
 
-        [data-theme="night"] .ground {
-            background: var(--ground-night);
+        .sway-animation {
+            animation: sway 2s ease-in-out infinite;
+            transform-origin: bottom center;
         }
 
-        [data-theme="night"] .river {
-            background: var(--river-night);
-        }
-
-        [data-theme="night"] .cycle-container {
-            filter: brightness(0.6);
-        }
-
-        [data-theme="night"] .cloud {
-            display: none;
-        }
-
-        [data-theme="day"] .star {
-            display: none;
-        }
-
-        .theme-toggle {
+        .controls {
             position: fixed;
             top: 20px;
             right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .control-btn {
             padding: 10px 20px;
             background: rgba(255, 255, 255, 0.8);
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">Toggle Day/Night</button>
+    <div class="controls">
+        <button class="control-btn" onclick="toggleTheme()">Toggle Day/Night</button>
+        <button class="control-btn" onclick="toggleSway()">Toggle Tree Sway</button>
+        <button class="control-btn" onclick="toggleCycle()">Stop/Start Cycle</button>
+    </div>
+
     <div class="scene-container" data-theme="day">
         <div class="sky">
-            <!-- Celestial Body (Sun/Moon) -->
             <div class="celestial-container">
                 <img src="Sun.png" class="responsive-image" id="celestialElement" alt="Sun/Moon" />
             </div>
 
-            <!-- Clouds -->
             <div class="cloud" style="top: 15%; width: 200px; height: 60px"></div>
             <div class="cloud" style="top: 25%; width: 150px; height: 50px; animation-duration: 25s"></div>
             <div class="cloud" style="top: 35%; width: 180px; height: 55px; animation-duration: 30s"></div>
         </div>
 
         <div class="ground">
-            <!-- River -->
             <div class="river">
                 <img src="River.gif" class="river-image" alt="Flowing River" />
             </div>
 
-            <!-- House -->
             <div class="image-container house-container">
                 <img src="Day_House.png" class="responsive-image" alt="House" />
             </div>
 
-            <!-- Trees -->
             <div class="image-container tree-container tree-left">
                 <img src="Day_Tree.png" class="responsive-image" alt="Tree" />
             </div>
@@ -278,7 +244,6 @@
                 <img src="Day_Tree.png" class="responsive-image" alt="Tree" />
             </div>
 
-            <!-- Cycle (Bicycle) -->
             <div class="image-container cycle-container">
                 <img src="Cycle.png" class="responsive-image" alt="Cycle" />
             </div>
@@ -292,18 +257,11 @@
             const newTheme = currentTheme === "day" ? "night" : "day";
             const celestialElement = document.getElementById("celestialElement");
 
-            // Change celestial body image
             celestialElement.src = newTheme === "day" ? "Sun.png" : "Moon.png";
-
-            // Update theme
             container.setAttribute("data-theme", newTheme);
 
-            // Add/remove stars
-            if (newTheme === "night") {
-                createStars();
-            } else {
-                removeStars();
-            }
+            if (newTheme === "night") createStars();
+            else removeStars();
         }
 
         function createStars() {
@@ -321,7 +279,23 @@
         }
 
         function removeStars() {
-            document.querySelectorAll(".star").forEach((star) => star.remove());
+            document.querySelectorAll(".star").forEach(star => star.remove());
+        }
+
+        let isSwaying = false;
+        function toggleSway() {
+            const trees = document.querySelectorAll('.tree-container');
+            trees.forEach(tree => {
+                tree.classList.toggle('sway-animation');
+            });
+            isSwaying = !isSwaying;
+        }
+
+        let isCycleMoving = true;
+        function toggleCycle() {
+            const cycle = document.querySelector('.cycle-container');
+            cycle.style.animationPlayState = isCycleMoving ? 'paused' : 'running';
+            isCycleMoving = !isCycleMoving;
         }
     </script>
 </body>
